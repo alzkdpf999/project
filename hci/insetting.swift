@@ -10,8 +10,8 @@ import UserNotifications
 import DLLocalNotifications
 
 struct tap:View {
-    @Binding var but : Bool
-//    @State var but = false
+//    @Binding var but : Bool
+    @State var but = false
     @State var chan : Int = 0 // 일일활동
     @State var wea : Int = 0 // 날씨
     @State var test : Int = 0// 체중 받아오는거
@@ -57,7 +57,7 @@ struct tap:View {
                     .cornerRadius(20)
                    
             }
-            .padding(.vertical ,35)
+            .padding(.vertical , 35)
             .frame(height: 33)
             .onAppear(){
                 self.setnotifi()
@@ -89,13 +89,13 @@ struct tap:View {
         }
 }
 }
-//struct tap_Previews: PreviewProvider {
-//    static var previews: some View {
-//       tap()
-//     // dma()
-//        //togl()
-//    }
-//}
+struct tap_Previews: PreviewProvider {
+    static var previews: some View {
+       tap()
+     // dma()
+        //togl()
+    }
+}
 struct dma : View{
 //    @State var re = 0
     @State var but = false

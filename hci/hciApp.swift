@@ -8,7 +8,8 @@
 import SwiftUI
 
 @main
-struct hciApp: App {
+struct hciApp: App{
+    
     var body: some Scene {
         WindowGroup {
            tap()
