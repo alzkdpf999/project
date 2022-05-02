@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0F188E1B281FF907005450AB /* hciApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F188E1A281FF907005450AB /* hciApp.swift */; };
-		0F188E1D281FF907005450AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F188E1C281FF907005450AB /* ContentView.swift */; };
+		0F188E1D281FF907005450AB /* settinghome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F188E1C281FF907005450AB /* settinghome.swift */; };
 		0F188E1F281FF908005450AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F188E1E281FF908005450AB /* Assets.xcassets */; };
 		0F188E22281FF908005450AB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F188E21281FF908005450AB /* Preview Assets.xcassets */; };
 		0F188E2C281FF908005450AB /* hciTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F188E2B281FF908005450AB /* hciTests.swift */; };
 		0F188E36281FF908005450AB /* hciUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F188E35281FF908005450AB /* hciUITests.swift */; };
 		0F188E38281FF908005450AB /* hciUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F188E37281FF908005450AB /* hciUITestsLaunchTests.swift */; };
+		0F188E45281FF946005450AB /* insetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F188E44281FF946005450AB /* insetting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,7 @@
 /* Begin PBXFileReference section */
 		0F188E17281FF907005450AB /* hci.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hci.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F188E1A281FF907005450AB /* hciApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hciApp.swift; sourceTree = "<group>"; };
-		0F188E1C281FF907005450AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0F188E1C281FF907005450AB /* settinghome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settinghome.swift; sourceTree = "<group>"; };
 		0F188E1E281FF908005450AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F188E21281FF908005450AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0F188E27281FF908005450AB /* hciTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hciTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +45,7 @@
 		0F188E31281FF908005450AB /* hciUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hciUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F188E35281FF908005450AB /* hciUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hciUITests.swift; sourceTree = "<group>"; };
 		0F188E37281FF908005450AB /* hciUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hciUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0F188E44281FF946005450AB /* insetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = insetting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				0F188E1A281FF907005450AB /* hciApp.swift */,
-				0F188E1C281FF907005450AB /* ContentView.swift */,
+				0F188E1C281FF907005450AB /* settinghome.swift */,
 				0F188E1E281FF908005450AB /* Assets.xcassets */,
 				0F188E20281FF908005450AB /* Preview Content */,
+				0F188E44281FF946005450AB /* insetting.swift */,
 			);
 			path = hci;
 			sourceTree = "<group>";
@@ -257,8 +260,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F188E1D281FF907005450AB /* ContentView.swift in Sources */,
+				0F188E1D281FF907005450AB /* settinghome.swift in Sources */,
 				0F188E1B281FF907005450AB /* hciApp.swift in Sources */,
+				0F188E45281FF946005450AB /* insetting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
