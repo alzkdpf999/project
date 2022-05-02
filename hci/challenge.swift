@@ -11,7 +11,7 @@ struct challenge: View{
     var body: some View{
         VStack{
             Text("챌린지")
-                .offset(y: -80)
+                .offset(y: -60)
                 .font(.title)
                 
 
@@ -19,34 +19,44 @@ struct challenge: View{
             }, label: {
                
                 HStack{
-                    Image("challenge")
+                    Image("leftyellow")
                     
                     Text("무설탕으로 마시기")
-                   
                     .font(.system(size: 22))
                     .fontWeight(.bold)
-                    .foregroundColor(.black)
-                    .frame(width: 300.0, height: 160)
-//                    .background(Color.blue)
-                    .cornerRadius(30)
+                    .foregroundColor(.white)
+                    Image("rightyellow")
                 
                 }
+                .frame(width: 300, height: 160)
+                .background(Color(red: 0.161, green: 0.349, blue: 0.51))
+                .cornerRadius(30)
+                .padding(.bottom, 40)
+                
+                
             })
            
             
             Button(action: {
             }, label: {
-                
-                    Text("저카페인으로 마시기")
+               
+                HStack{
+                    Image("leftred")
+                    
+                    Text("무설탕으로 마시기")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
+                    Image("rightred")
+                
+                }
+                .frame(width: 300, height: 160)
+                .background(Color(red: 0.435, green: 0.671, blue: 0.816))
+                .cornerRadius(30)
+                .padding(.bottom, 40)
+                
                 
             })
-            .padding(.all, 9.0)
-            .frame(width: 300.0, height: 160)
-            .background(Color.blue)
-            .cornerRadius(30)
 
         }
     }
@@ -57,3 +67,4 @@ struct challenge_Previews: PreviewProvider {
     
     }
 }
+

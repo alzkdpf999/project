@@ -466,6 +466,13 @@ extension View{
                 HalfSheetHelper4(sheetView4: sheetView4(),showSheet4: showSheet4,onEnd4:onEnd4)
             )
     }
+    func halfSheet5<SheetView: View>(showSheet5: Binding<Bool>,@ViewBuilder sheetView5: @escaping ()->SheetView, onEnd5: @escaping ()->())-> some View{
+        return self
+            .background(
+                HalfSheetHelper5(sheetView5: sheetView5(),showSheet5: showSheet5,onEnd5:onEnd5)
+            )
+    }
+   
 }
 
 
@@ -505,6 +512,7 @@ struct HalfSheetHelper<SheetView: View>: UIViewControllerRepresentable{
             parent.onEnd()
             
         }
+        
     }
 }
 class CustomHostingController<Content: View>: UIHostingController<Content>{
@@ -727,6 +735,57 @@ class CustomHostingController4<Content: View>: UIHostingController<Content>{
             
                 .medium(), .large()]
             presentationController4.prefersGrabberVisible = true
+        }
+    }
+}
+struct HalfSheetHelper5<SheetView: View>: UIViewControllerRepresentable{
+    
+    var sheetView5: SheetView
+    @Binding var showSheet5: Bool
+    var onEnd5: ()->()
+    let controller5 = UIViewController()
+    func makeCoordinator() -> Coordinator5 {
+        return Coordinator5(parent5: self)
+    }
+    func makeUIViewController(context: Context) -> UIViewController {
+        controller5.view.backgroundColor = .clear
+        
+        return controller5
+    }
+    func updateUIViewController(_ uiViewController5: UIViewController, context: Context) {
+        if showSheet5{
+            let sheetController5 = CustomHostingController5(rootView: sheetView5)
+            sheetController5.presentationController?.delegate = context.coordinator
+            uiViewController5.present(sheetController5, animated: true)
+    }
+        else{
+            uiViewController5.dismiss(animated: true)
+        }
+}
+    class Coordinator5: NSObject,UISheetPresentationControllerDelegate{
+        var parent5: HalfSheetHelper5
+        init(parent5: HalfSheetHelper5){
+            self.parent5 = parent5
+        }
+        func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+            parent5.showSheet5 = false
+            parent5.onEnd5()
+            
+        }
+    }
+}
+class CustomHostingController5<Content: View>: UIHostingController<Content>{
+
+   override func viewDidLoad() {
+       view.backgroundColor = .white
+       
+       
+        if let presentationController5 = presentationController as?
+            UISheetPresentationController{
+            presentationController5.detents = [
+            
+                .medium(), .large()]
+            presentationController5.prefersGrabberVisible = true
         }
     }
 }
