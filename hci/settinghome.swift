@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Home: View{
    
-    @State var showSheet: Bool = false //알람
+    
     @State var showSheet1: Bool = false // 성별
     @State var showSheet2: Bool = false // 일일활동
     @State var showSheet3: Bool = false // 날씨
@@ -46,7 +46,7 @@ struct Home: View{
                     } label: {
                         Image(systemName: "chevron.right")
                         .padding()
-                        .foregroundColor(Color.blue.opacity(0.5))
+                        .foregroundColor(.black)
                         .font(.system(size: 22))
                         
                     }
@@ -60,12 +60,12 @@ struct Home: View{
                                 Text("남성")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                         .frame(width: 100.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                             
                         Button(action: {
@@ -76,12 +76,12 @@ struct Home: View{
                                 Text("여성")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                         .frame(width: 100.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
 
                         }
@@ -104,7 +104,7 @@ struct Home: View{
                     } label: {
                         Image(systemName: "chevron.right")
                         .padding()
-                        .foregroundColor(Color.blue.opacity(0.5))
+                        .foregroundColor(.black)
                         .font(.system(size: 22))
                         
                     }
@@ -117,7 +117,7 @@ struct Home: View{
                                         Text("\(wei[index] + 30)")
                                             .font(.system(size: 22))
                                             .fontWeight(.bold)
-                                            .foregroundColor(.blue)
+                                            .foregroundColor(Color(red: 0.573, green: 0.753, blue: 0.843))
                                     }
                                 }).pickerStyle(.wheel)
                                     
@@ -134,12 +134,12 @@ struct Home: View{
                                     Text("완료")
                                     .font(.system(size: 22))
                                     .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
                                 
                             })
                             .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                             .frame(width: 100.0)
-                            .background(Color.blue)
+                            .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                             .cornerRadius(10)
                             .offset(x:125, y: 220)
                                  
@@ -147,7 +147,7 @@ struct Home: View{
                                     .font(.system(size: 22))
                                     .fontWeight(.bold)
                                     .padding()
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(Color(red: 0.573, green: 0.753, blue: 0.843))
                                     
                                     .offset(x: 190,y: 120)
                             }
@@ -184,7 +184,7 @@ struct Home: View{
                     } label: {
                         Image(systemName: "chevron.right")
                         .padding()
-                        .foregroundColor(Color.blue.opacity(0.5))
+                        .foregroundColor(.black)
                         .font(.system(size: 22))
                         
                     }
@@ -206,12 +206,12 @@ struct Home: View{
                             
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                         .frame(width: 110.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                         }
                             .frame(width: 250)
@@ -231,12 +231,12 @@ struct Home: View{
                                 Text("+ 0ml")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(.all, 9.0)
                         .frame(width: 110.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                         }
                             .frame(width: 250)
@@ -257,12 +257,12 @@ struct Home: View{
                                 Text("- 300ml")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                         .frame(width: 110.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                                
                         }
@@ -297,7 +297,7 @@ struct Home: View{
                     } label: {
                         Image(systemName: "chevron.right")
                         .padding()
-                        .foregroundColor(Color.blue.opacity(0.5))
+                        .foregroundColor(.black)
                         .font(.system(size: 22))
                         
                     }
@@ -320,12 +320,12 @@ struct Home: View{
                                 Text("+ 500ml")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                         .frame(width: 110.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                         }
                             .frame(width: 250)
@@ -345,12 +345,12 @@ struct Home: View{
                                 Text("+ 250ml")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(.all, 9.0)
                         .frame(width: 110.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                         }
                             .frame(width: 250)
@@ -369,12 +369,12 @@ struct Home: View{
                             
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                         .frame(width: 110.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                         }
                             .frame(width: 250)
@@ -394,12 +394,12 @@ struct Home: View{
                                 Text("- 200ml")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                         })
                         .padding(/*@START_MENU_TOKEN@*/.all, 9.0/*@END_MENU_TOKEN@*/)
                         .frame(width: 110.0)
-                        .background(Color.blue)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(10)
                         }
                             .frame(width: 250)
@@ -522,7 +522,7 @@ class CustomHostingController<Content: View>: UIHostingController<Content>{
        
         if let presentationController = presentationController as?
             UISheetPresentationController{
-            presentationController.detents = [.large()]
+            presentationController.detents = [ .large()]
             presentationController.prefersGrabberVisible = true
         }
     }
@@ -782,9 +782,7 @@ class CustomHostingController5<Content: View>: UIHostingController<Content>{
        
         if let presentationController5 = presentationController as?
             UISheetPresentationController{
-            presentationController5.detents = [
-            
-                .medium(), .large()]
+            presentationController5.detents = [.large()]
             presentationController5.prefersGrabberVisible = true
         }
     }

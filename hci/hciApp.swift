@@ -13,6 +13,7 @@ struct hciApp: App{
     var body: some Scene {
         WindowGroup {
            tap()
+//            challenge()
         }
     }
 }
