@@ -19,9 +19,6 @@ struct Home: View{
     @Binding var chan : Int // 일일활동
     @Binding var wea : Int  // 날씨
     @Binding var test : Int // 체중 받아오는거
-    func water() -> Int{
-        return (test + 30) * 30 + (chan + wea)
-    }
    var wei = [Int](0..<90)
     var body: some View{
         VStack{
@@ -421,7 +418,7 @@ struct Home: View{
                         Text("일일 섭취량")
                         Spacer(minLength: 15)
                         Text("\((test + 30) * 30 + (chan + wea)) ml")
-                        Text("\(water())")
+                     
                     
                     }
                     .offset(x:-10 ,y: 90)
