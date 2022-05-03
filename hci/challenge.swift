@@ -83,7 +83,21 @@ struct challenge: View{
                             
                         }
                         .padding(20)
+                        
                     })
+                    .background(  ZStack{
+                        VStack{
+                            Circle()
+                                .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                                .scaleEffect(1.5)
+                                .offset(y: 120)
+                            Circle()
+                                .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                                .scaleEffect(2)
+                                .offset(y: -500)
+                        }
+                        })
+
                 } onEnd: {
                     print("")
                 }
@@ -115,6 +129,7 @@ struct challenge: View{
                         VStack{
                             HStack{
                                 Image("leftred")
+                                   
                                 
                                 Text("저카페인으로 마시기")
                                 .font(.system(size: 22))
@@ -125,7 +140,9 @@ struct challenge: View{
                             }
                             .frame(width: 350, height: 160)
                             .background(Color(red: 0.435, green: 0.671, blue: 0.816))
+                            
                             .cornerRadius(30)
+                            
                             .padding(.top, 40)
                             Text("이점").font(.system(size: 35)).fontWeight(.bold)
                             
@@ -158,12 +175,20 @@ struct challenge: View{
                             
                         }
                         .padding(20)
-                        .background(
-                            Circle()
-//                                .fill(Color.red)
-//                                .scaleEffect(1.5)
-                        )
                     })
+                    .background(  ZStack{
+                        VStack{
+                            Circle()
+                                .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                                .scaleEffect(1.5)
+                                .offset(y: 120)
+                            Circle()
+                                .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                                .scaleEffect(2)
+                                .offset(y: -500)
+                        }
+                        })
+
                 }onEnd5: {
                     print("")
                 }
@@ -172,6 +197,20 @@ struct challenge: View{
             })
 
         }
+        .background(
+            ZStack{
+            VStack{
+                Circle()
+                    .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                    .scaleEffect(2)
+                    .offset(y: -105)
+                Circle()
+                    .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                    .scaleEffect(2.5)
+                    .offset(y: -520)
+            }
+            }
+        )
     }
 }
 struct challenge_Previews: PreviewProvider {

@@ -85,6 +85,18 @@ struct Home: View{
                         .cornerRadius(10)
 
                         }
+                        .background(  ZStack{
+                            VStack{
+                                Circle()
+                                    .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                                    .scaleEffect(10)
+                                    .offset(y: -100)
+                                Circle()
+                                    .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                                    .scaleEffect(10.5)
+                                    .offset(y: -200)
+                            }
+                            })
                     }
                     onEnd1: {
                         print("")
@@ -421,6 +433,10 @@ struct Home: View{
                      
                     
                     }
+                    .background(
+                        Image("tulip_").font(.system(size: 50))
+                            .offset(y: -80)
+                    )
                     .offset(x:-10 ,y: 90)
                     
                 }

@@ -49,11 +49,11 @@ struct tap:View {
                             Text("반복시간:\(timevalue[re])")
                 Text("알람: \(time.string(from: startDay)) ~ \(time.string(from: endDay))")
                         }.font(.system(size: 19))
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                     .frame(width: 300, height: 70)
                     
                     .border(Color(red: 0.776, green: 0.776, blue: 0.772),width: 1)
-                    .background(Color.green)
+                    .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                     .cornerRadius(20)
                    
             }
@@ -73,20 +73,37 @@ struct tap:View {
                         Text("\((test + 30) * 30 + wea + chan)  ml")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                         
                         Text("하루 물 섭취량을 설정해주세요")
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .multilineTextAlignment(.leading)
                     }
                         .frame(width: 300, height: 100)
-                        .background(Color.green)
+                        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
                         .cornerRadius(20)
                         
                 }.offset(y:30)
             }
             .offset(y: -200)
+            .background(
+                ZStack{
+                VStack{
+                    Circle()
+                        .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                        .scaleEffect(5)
+                        .offset(y: -250)
+                    Circle()
+                        .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                        .scaleEffect(5.5)
+                        .offset(y: -490)
+                }
+                }
+            )
+            
         }
+        
+        
 }
 }
 struct tap_Previews: PreviewProvider {
@@ -130,21 +147,28 @@ struct dma : View{
         .frame(width: 360)
         .clipped()
         .compositingGroup()
+        .background(Color(red: 0.573, green: 0.753, blue: 0.843))
         }
         .padding(.bottom ,40)
-        Section(header: Text("| 시작시간: \(dateFormatter.string(from: startDay)) | 종료시간: \(dateFormatter.string(from: endDay)) | ")
+        Section(header: Text(" 시작시간: \(dateFormatter.string(from: startDay)) | 종료시간: \(dateFormatter.string(from: endDay))  ")
             .font(.title2)) {
                         DatePicker("시작 시간", selection: $startDay, displayedComponents: .hourAndMinute)
                     .font(.system(size: 30))
+                    .frame(width: 300, height: 100)
                     .padding(.horizontal, 25)
                         DatePicker("종료 시간", selection: $endDay, displayedComponents: .hourAndMinute)
                     .font(.system(size: 30))
+                    .frame(width: 300, height: 100)
                     .padding(.horizontal, 25)
                     
             }
+            .background(Color(red: 0.573, green: 0.753, blue: 0.843))
+            .cornerRadius(10)
             .padding(.top, 40)
+          
         }
         .offset(y: -70)
+        
                  
 }
 }
