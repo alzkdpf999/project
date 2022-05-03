@@ -6,7 +6,11 @@
 //
 
 import SwiftUI
-
+//struct Home_Previews: PreviewProvider {
+//    static var previews: some View {
+//      Home()
+//    }
+//}
 struct Home: View{
    
     
@@ -19,6 +23,9 @@ struct Home: View{
     @Binding var chan : Int // 일일활동
     @Binding var wea : Int  // 날씨
     @Binding var test : Int // 체중 받아오는거
+//    @State var chan = 0 // 일일활동
+//    @State var wea = 0  // 날씨
+//    @State var test = 0
    var wei = [Int](0..<90)
     var body: some View{
         VStack{
@@ -33,6 +40,7 @@ struct Home: View{
                  
                     HStack{
                         Text("성별")
+                            .font(.system(size:25))
                         
                         Spacer(minLength: 15)
                         if gen == 0{
@@ -94,7 +102,7 @@ struct Home: View{
                                 Circle()
                                     .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
                                     .scaleEffect(10.5)
-                                    .offset(y: -200)
+                                    .offset(y: -270)
                             }
                             })
                     }
@@ -108,6 +116,7 @@ struct Home: View{
                     
                     HStack{
                         Text("체중")
+                            .font(.system(size:25))
                         
                         Spacer(minLength: 15)
                        Text("\(test + 30) Kg")
@@ -129,7 +138,7 @@ struct Home: View{
                                         Text("\(wei[index] + 30)")
                                             .font(.system(size: 22))
                                             .fontWeight(.bold)
-                                            .foregroundColor(Color(red: 0.573, green: 0.753, blue: 0.843))
+                                            .foregroundColor(.black)
                                     }
                                 }).pickerStyle(.wheel)
                                     
@@ -159,7 +168,7 @@ struct Home: View{
                                     .font(.system(size: 22))
                                     .fontWeight(.bold)
                                     .padding()
-                                    .foregroundColor(Color(red: 0.573, green: 0.753, blue: 0.843))
+                                    .foregroundColor(.black)
                                     
                                     .offset(x: 190,y: 120)
                             }
@@ -167,6 +176,19 @@ struct Home: View{
                             }
                                        }
                         .padding()
+                        .background(
+                            ZStack{
+                            VStack{
+                                Circle()
+                                    .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                                    .scaleEffect(2)
+                                    .offset(y: -10)
+                                Circle()
+                                    .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                                    .scaleEffect(2.5)
+                                    .offset(y: -415)
+                            }
+                            })
     
                     }
                     onEnd4: {
@@ -179,7 +201,7 @@ struct Home: View{
                     
                     HStack{
                         Text("일일 활동")
-                        
+                            .font(.system(size:25))
                         Spacer(minLength: 15)
                         if self.chan == -300 {
                             Text("낮음")
@@ -280,6 +302,18 @@ struct Home: View{
                         }
                             .frame(width: 250)
                         }
+                        .background(  ZStack{
+                            VStack{
+                                Circle()
+                                    .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                                    .scaleEffect(6)
+                                    .offset(y: -95)
+                                Circle()
+                                    .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                                    .scaleEffect(6.5)
+                                    .offset(y: -315)
+                            }
+                            })
                     }
                     onEnd2: {
                         print("")
@@ -290,7 +324,7 @@ struct Home: View{
                     .frame(width: 400 )
                     HStack{
                         Text("날씨")
-                        
+                            .font(.system(size:25))
                         Spacer(minLength: 15)
                         if self.wea == 500 {
                             Text("더움")
@@ -416,6 +450,18 @@ struct Home: View{
                         }
                             .frame(width: 250)
                         }
+                        .background(  ZStack{
+                            VStack{
+                                Circle()
+                                    .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                                    .scaleEffect(4.5)
+                                    .offset(y: -85)
+                                Circle()
+                                    .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                                    .scaleEffect(5)
+                                    .offset(y: -340)
+                            }
+                            })
                     }
                     onEnd3: {
                         print("")
@@ -428,14 +474,17 @@ struct Home: View{
                     
                     VStack{
                         Text("일일 섭취량")
+                            .fontWeight(.bold)
                         Spacer(minLength: 15)
                         Text("\((test + 30) * 30 + (chan + wea)) ml")
-                     
+                            .fontWeight(.bold)
                     
                     }
+                    .font(.system(size: 30))
+                    .offset(y: 110)
                     .background(
-                        Image("tulip_").font(.system(size: 50))
-                            .offset(y: -80)
+                        Image("tulip")
+                            .offset(y: 0)
                     )
                     .offset(x:-10 ,y: 90)
                     
@@ -445,6 +494,18 @@ struct Home: View{
             }
             
         }
+        .background(  ZStack{
+            VStack{
+                Circle()
+                    .fill(Color(red: 0.651, green: 0.792, blue: 0.886))
+                    .scaleEffect(4)
+                    .offset(y: -300)
+                Circle()
+                    .fill(Color(red: 0.518, green: 0.714, blue: 0.843))
+                    .scaleEffect(4.5)
+                    .offset(y: -600)
+            }
+            })
         
     }
 }
