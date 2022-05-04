@@ -22,13 +22,13 @@ struct challenge: View{
             }, label: {
                
                 HStack{
-                    Image("cof")
+                    Image("cok")
                     
                     Text("무설탕으로 마시기")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    Image("tea")
+                    Image("bub")
                 
                 }
                 .frame(width: 350, height: 160)
@@ -39,13 +39,14 @@ struct challenge: View{
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack{
                             HStack{
-                                Image("cof")
+                                Image("cok")
                                 
                                 Text("무설탕으로 마시기")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                Image("tea")
+                                Image("bub")
+                                 
                             
                             }
                             .frame(width: 350, height: 160)
@@ -111,13 +112,15 @@ struct challenge: View{
             }, label: {
                
                 HStack{
-                    Image("cok")
+                    Image("cof")
                     
                     Text("저카페인으로 마시기")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    Image("bub")
+                    Image("tea")
+                       
+                        
                 
                 }
                 .frame(width: 350, height: 160)
@@ -128,14 +131,15 @@ struct challenge: View{
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack{
                             HStack{
-                                Image("cok")
+                                Image("cof")
                                    
                                 
                                 Text("저카페인으로 마시기")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                Image("bub")
+                                Image("tea")
+                                
                             
                             }
                             .frame(width: 350, height: 160)
