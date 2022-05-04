@@ -22,13 +22,13 @@ struct challenge: View{
             }, label: {
                
                 HStack{
-                    Image("leftyellow")
+                    Image("cof")
                     
                     Text("무설탕으로 마시기")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    Image("rightyellow")
+                    Image("tea")
                 
                 }
                 .frame(width: 350, height: 160)
@@ -39,13 +39,13 @@ struct challenge: View{
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack{
                             HStack{
-                                Image("leftyellow")
+                                Image("cof")
                                 
                                 Text("무설탕으로 마시기")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                Image("rightyellow")
+                                Image("tea")
                             
                             }
                             .frame(width: 350, height: 160)
@@ -111,13 +111,13 @@ struct challenge: View{
             }, label: {
                
                 HStack{
-                    Image("leftred")
+                    Image("cok")
                     
                     Text("저카페인으로 마시기")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    Image("rightred")
+                    Image("bub")
                 
                 }
                 .frame(width: 350, height: 160)
@@ -128,14 +128,14 @@ struct challenge: View{
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack{
                             HStack{
-                                Image("leftred")
+                                Image("cok")
                                    
                                 
                                 Text("저카페인으로 마시기")
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                Image("rightred")
+                                Image("bub")
                             
                             }
                             .frame(width: 350, height: 160)
