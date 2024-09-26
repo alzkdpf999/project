@@ -44,12 +44,13 @@ public class FileController {
 
 	@PostMapping("/upload")
 	@ResponseBody
-	public ResponseEntity<Object> Upload(@RequestParam("file") MultipartFile file, @RequestParam("roomId") String roomId)
+	public ResponseEntity<Object> Upload(@RequestParam("file") MultipartFile file,
+			@RequestParam("roomId") String roomId)
 			throws Exception {
-		String fileName =null;
+		String fileName = null;
 		if (!file.isEmpty()) {
 			try {
-//				String fileName = fileService.fileUpload(file,roomId);
+				// String fileName = fileService.fileUpload(file,roomId);
 				fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
 				file.transferTo(new File(fileName));
 				log.info("파일 이름 : {}, 타입 : {}", fileName, file.getContentType());

@@ -182,10 +182,12 @@ $(".localAudioToggle").on("click", function(){
 // "유저 설정" 버튼을 클릭할 때 모달을 설정합니다.
 $('#userSetting').on('click', function (e) {
 	let participantsList = $('#participantsList');
+	
 	participantsList.empty(); // 기존 목록을 비웁니다.
 
 	// participants 객체를 반복하여 각 참가자에 대한 정보를 목록에 추가합니다.
 	$.each(participants, function (name, participant) {
+		console.log("asd")
 		let listItem = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
 		let localUser = participant.getLocalUser(); // 로컬 user 의 id 확인
 

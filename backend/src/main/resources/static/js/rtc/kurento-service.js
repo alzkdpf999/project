@@ -508,7 +508,7 @@ async function screenShare() {
     }
 }
 
-function startChroma() {
+async function startRec() {
     console.log("버튼 눌럿어");
     //let chromaBtn = $("#chroma");
     //var message = {
@@ -521,11 +521,11 @@ function startChroma() {
         id: "recording",
         name: $("#uuid").val(),
         room: roomId,
-        mode: $('input[name="mode"]:checked').val()
+        mode: "video-and-audio"
     }
     sendMessageToServer(message);
 }
-function stop() {
+async function stop() {
     // var message = {
     //   id: "stopChroma",
     // name: $("#uuid").val(),
@@ -539,3 +539,23 @@ function stop() {
     }
     sendMessageToServer(message);
 }
+
+
+async function screenRec() {
+	console.log("rec");
+    let recBtn = $("#recBtn");
+    let isRec = recBtn.data("flag");
+
+    if (isRec) { // 이미 녹화 중인 경우
+        await stop(); // 화면 녹화 중지
+        // screenShareBtn.val("Share Screen"); // 버튼 텍스트 초기화
+        recBtn.data("flag", false);
+        recBtn.attr("src", "/images/webrtc/screen-share-on.svg")
+    } else { // 화면 공유 중이 아닌 경우
+        await startRec(); // 화면 녹화 시작
+        // screenShareBtn.val("Stop Sharing"); // 버튼 텍스트 변경
+        recBtn.data("flag", true);
+        recBtn.attr("src", "/images/webrtc/screen-share-off.svg")
+    }
+}
+

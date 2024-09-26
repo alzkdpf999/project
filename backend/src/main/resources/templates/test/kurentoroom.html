@@ -133,8 +133,8 @@
 											                      </div>
 																  -->
 																 <button id=aiMessage>start</button>
-											                      <img src="/images/assets/screen.png" width="52px" height="52px" alt="" id="rec"
-											                       onclick="stop()">
+											                      <img src="/images/assets/screen.png" width="52px" data-flag="false" height="52px" alt="" id="recBtn"
+											                       onclick="screenRec()">
 											                      <img src="/images/assets/video.png" class="localVideoToggle" width="52px"
 											                          height="52px" alt="" id="videoBtn" data-flag="true">
 																	  <img src="/images/assets/quit.png" width="52px" height="52px" alt="" id="quit"
@@ -213,8 +213,11 @@
 			<p style=" color:#606060;font-weight: 600;font-size: 16px;">아래 버튼을 클릭하면 알림이 꺼집니다</p>
 			<button id="집중" style="border-radius:10px;background-color: #5051F9;color:white;font-size: 20px;font-weight: 700;width: 434px;height: 60px;border: none;margin-top: 20px;">네, 집중할게요</button>
 		</div>
+</div>
 		
 </html>
+
+
 
 <!-- HTML에 음량 조절 슬라이더 추가 -->
 <div class="volume-control" type="hidden">
