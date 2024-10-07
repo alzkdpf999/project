@@ -22,7 +22,7 @@ ws.onopen = () => {
 }
 
 console.log(locationHost);
-
+console.log(participants.length);
 var initDataChannel = function () {
     dataChannel.init();
     dataChannelChatting.init();
@@ -48,8 +48,6 @@ let constraints = {
     }
 };
 
-
-
 ws.onmessage = function (message) {
     var parsedMessage = JSON.parse(message.data);
     // console.info('Received message: ' + message.data);
@@ -72,7 +70,7 @@ ws.onmessage = function (message) {
             console.log("receiveVideoAnswer");
             break;
         case 'iceCandidate':
-            console.log("iceCandidate");
+            //console.log("iceCandidate");
             participants[parsedMessage.name].rtcPeer.addIceCandidate(parsedMessage.candidate, function (error) {
                 if (error) {
                     console.error("Error adding candidate: " + error);
@@ -139,6 +137,10 @@ function register() {
 }
 
 function onNewParticipant(request) {
+	const cntTag = document.getElementById("cnt");
+	let userCnt = parseInt(cntTag.innerText);
+	userCnt+=1;
+	cntTag.innerText = userCnt;
     receiveVideo(request.name);
 }
 
@@ -208,7 +210,6 @@ function onExistingParticipants(msg) {
         .then(handleSuccess)
 
 }
-
 function receiveVideo(sender) {
     var participant = new Participant(sender);
     participants[sender] = participant;

@@ -154,7 +154,7 @@ public class MainController {
 		model.addAttribute("uuid", uuid);
 		model.addAttribute("roomId", roomId);
 		model.addAttribute("roomName", "test");
-		
+		model.addAttribute("cnt",1);
 //		roomService.attendRoom(roomId, uuid);
 //		try {
 //			String roomName = roomService.attendRoom(roomId, uuid);

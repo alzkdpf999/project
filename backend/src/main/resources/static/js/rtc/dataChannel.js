@@ -30,7 +30,7 @@ async function predict(model) {
 	return predictedClass;
 	 
 }
-let a= 0;
+
 // 웹캠과 모델을 바로 사용
 const alarmAudio = document.getElementById("alarmAudio");
 function openModal() {
@@ -42,36 +42,64 @@ function openModal() {
 function closeModal() {
   document.getElementById("딴짓알림모달").style.display = "none";
   alarmAudio.pause();
+  
   alarmAudio.currentTime = 0;
 }
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("집중").addEventListener("click", function() {
-        closeModal();
-    });
-});
+
+
+
+
 async function run(model, callback) {
     if (!webcamElement) {
         console.error('Webcam element is not defined');
         return;
     }
 
-    const predictionInterval = 100; // 예측을 매 500ms마다 수행 (2 FPS)
-    
+    const predictionInterval = 1000; // 예측을 매 500ms마다 수행 (2 FPS)
+   	let a = 0;
+	let isPaused = false;
+	let windowSize = 10; // 10초 동안의 값을 기록하기 위한 크기
+	let values = Array(windowSize).fill(1); // 처음에는 1로 초기화 (0이 아닌 값으로)
     // 예측을 반복적으로 수행
     async function predictLoop() {
-       const result = await predict(model);
-	   if (result == "0"){
-		console.log("test");
-		a+=1;
-		if (a===10){
-			openModal();
-		}
+       if(isPaused){
+		setTimeout(predictLoop, predictionInterval);
+		return;
 	   }
-	   callback(result)
-       setTimeout(predictLoop, predictionInterval);
+	   const result = await predict(model);
+	   checkZero(parseInt(result,10))
+	   setTimeout(predictLoop, predictionInterval);
 		
     }
 
+	
+
+	function checkZero(value) {
+	  // 배열에서 가장 오래된 값을 제거하고, 새 값을 추가
+	  values.shift();
+	  values.push(value);
+
+	  // 모든 값이 0이면 콘솔 출력
+	  if (values.every(v => v === 0)) {
+		openModal();
+		callback("0");
+		values = Array(10).fill(1); // 배열을 다시 1로 초기화
+		pauseModel();
+	  }
+	  
+	function pauseModel() {
+	          isPaused = true;
+			  console.log("중")
+	      }
+
+	      // 모델 재시작 함수
+		  resumeModel = function() { // 전역 변수에 할당
+		          isPaused = false;
+		          console.log("모델이 재시작되었습니다.");
+		          predictLoop(); // 예측 루프를 다시 시작
+		      };
+
+	}
     // 예측 시작
     predictLoop();
 }
@@ -161,7 +189,7 @@ const dataChannel = {
 			            type : "ai-result",
 						userName : this.user.name,
 						teachName : this.teach,
-						result : outcome
+						result : "알람이울렸"
 			        }
 		this.user.rtcPeer.send(JSON.stringify(messageData));
 	},
@@ -242,8 +270,7 @@ const dataChannel = {
 			         const model = await loadModel(); // 모델을 로드합니다.
 					 run(model, (result) => {
 						this.sendAiResult(result)
-					             console.log("예측 결과:", result);
-					             // 여기서 result를 이용해 추가적인 로직을 작성할 수 있습니다.
+					       
 					         });
 			     } catch (error) {
 			         console.error('Error:', error);
@@ -295,4 +322,12 @@ const dataChannel = {
         dataChannelChatting.$messagesContainer.append(contentElement);
 
     }
+	
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("집중").addEventListener("click", function() {
+        closeModal();
+		resumeModel();
+    });
+});
