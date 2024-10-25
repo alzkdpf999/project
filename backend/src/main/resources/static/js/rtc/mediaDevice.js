@@ -1,7 +1,7 @@
 /*
     media device 를 변경하기 위한 코드
  */
-
+const origGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
 const mediaDevice = {
     myDevice: null,
     audioInputs: null,
