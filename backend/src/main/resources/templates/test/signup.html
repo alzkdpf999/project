@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <style>
+      /* 기본 스타일 */
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      main,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      button,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        vertical-align: baseline;
+      }
+
+      input,
+      textarea,
+      button {
+        border-radius: 0;
+        appearance: none;
+        outline: none;
+        border: none;
+      }
+
+      button:focus {
+        border: none;
+        outline: none;
+      }
+
+      #root::-webkit-scrollbar {
+        display: none; /* 크롬, 사파리, 오페라, 엣지 */
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      a {
+        text-decoration: none;
+      }
+      /* 페이지 스타일 */
+      body {
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, rgba(116, 116, 250, 1) 0%, rgba(250, 250, 250, 1) 100%);
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1rem;
+      }
+      #logo {
+        height: 1.7rem;
+      }
+      #button-wrapper {
+        display: flex;
+        gap: 1rem;
+      }
+      #login-btn {
+        width: 8rem;
+        height: 3rem;
+        background-color: #5051f9;
+        color: white;
+        border-radius: 4px;
+        font-weight: 900;
+      }
+      #sign-btn {
+        width: 8rem;
+        height: 3rem;
+        background-color: white;
+        color: #5051f9;
+        border-radius: 4px;
+        font-weight: 900;
+      }
+      button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+      }
+      #wrapper {
+        justify-content: center;
+        padding-top: 4rem;
+        display: flex;
+
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        height: calc(100% - 20rem);
+      }
+      #white-box {
+        width: 35rem;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 3rem;
+        border-radius: 10px;
+      }
+      #login {
+        margin-top: 1rem;
+        height: 3rem;
+        width: 25rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        background-color: #5051f9;
+        color: white;
+        border-radius: 4px;
+      }
+      #mail-icon,
+      #key-icon,
+      #user-icon {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+      #name-wrapper {
+        height: 3rem;
+        width: 25rem;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border: 1.5px solid #5051f9;
+        padding: 0 0.7rem;
+        gap: 0.4rem;
+        border-radius: 4px;
+        padding: 0 0.7rem;
+        gap: 0.4rem;
+      }
+      #email-wrapper {
+        height: 3rem;
+        width: 25rem;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border: 1.5px solid #5051f9;
+        padding: 0 0.7rem;
+        gap: 0.4rem;
+        border-radius: 4px;
+        padding: 0 0.7rem;
+        gap: 0.4rem;
+        margin-top: 1rem;
+      }
+      #pwd-wrapper {
+        height: 3rem;
+        width: 25rem;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border: 1.5px solid #5051f9;
+        padding: 0 0.7rem;
+        gap: 0.4rem;
+        margin-top: 1rem;
+        border-radius: 4px;
+        padding: 0 0.7rem;
+        gap: 0.4rem;
+      }
+      #mail-input,
+      #pwd-input,
+      #name-input {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #5051f9;
+      }
+      #mail-input:placeholder {
+        color: #949494;
+      }
+      #pwd-input:placeholder {
+        color: #949494;
+      }
+      #name-input:placeholder {
+        color: #949494;
+      }
+      h2 {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #5051f9;
+        margin-bottom: 2.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img id="logo" onclick="location.href='index.html'" src="/images/assets/logo.png" />
+      <div id="button-wrapper">
+        <button id="login-btn" onclick="location.href='login.html'">로그인</button>
+        <button id="sign-btn" onclick="location.href='signup.html'">회원가입</button>
+      </div>
+    </header>
+    <div id="wrapper">
+      <div id="white-box">
+        <h2>회원가입</h2>
+        <div id="name-wrapper">
+          <img id="user-icon" src="/images/assets/user.png" />
+          <input id="name-input" placeholder="이름" />
+        </div>
+        <div id="email-wrapper">
+          <img id="mail-icon" src="/images/assets/mail-icon.png" />
+          <input id="mail-input" placeholder="이메일" />
+        </div>
+        <div id="pwd-wrapper">
+          <img id="key-icon" src="/images/assets/key-icon.png" />
+          <input id="pwd-input" type="password" placeholder="비밀번호" />
+        </div>
+        <button id="login">회원가입</button>
+      </div>
+    </div>
+  </body>
+</html>

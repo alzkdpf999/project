@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>교수님 어드민 페이지</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      h1 {
+        color: #5051f9;
+        text-align: center;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .button-container button {
+        background-color: #5051f9;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+
+      .button-container button:hover {
+        background-color: #3b3cd1;
+      }
+
+      .students-list {
+        margin-top: 20px;
+      }
+
+      .student-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .student-item .name {
+        font-weight: 600;
+      }
+
+      .focus-level {
+        display: flex;
+        align-items: center;
+      }
+
+      .focus-level span {
+        margin-right: 10px;
+        font-weight: 600;
+      }
+
+      .focus-bar {
+        width: 200px;
+        height: 20px;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .focus-bar-inner {
+        height: 100%;
+        background-color: #5051f9;
+        transition: width 0.5s ease;
+      }
+
+      /* 집중을 잃었을 때 강조 표시 */
+      .student-item.lost-focus {
+        background-color: #ffe6e6;
+        border: 1px solid #ff4d4d;
+      }
+
+      .student-item.lost-focus .name {
+        color: #ff4d4d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>집중도 분석 관리</h1>
+
+      <div class="button-container">
+        <button id="startBtn">분석 시작</button>
+        <button id="stopBtn">분석 중지</button>
+      </div>
+
+      <div class="students-list">
+        <div class="student-item" id="student1">
+          <div class="name">학생 1</div>
+          <div class="focus-level">
+            <span>집중도:</span>
+            <div class="focus-bar">
+              <div class="focus-bar-inner" style="width: 90%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="student-item" id="student2">
+          <div class="name">학생 2</div>
+          <div class="focus-level">
+            <span>집중도:</span>
+            <div class="focus-bar">
+              <div class="focus-bar-inner" style="width: 50%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="student-item" id="student3">
+          <div class="name">학생 3</div>
+          <div class="focus-level">
+            <span>집중도:</span>
+            <div class="focus-bar">
+              <div class="focus-bar-inner" style="width: 75%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 집중도 데이터는 가상 예시 데이터입니다. 실시간 데이터를 여기에 연결해야 합니다.
+      let studentsFocus = {
+        student1: 90,
+        student2: 50,
+        student3: 75,
+      };
+
+      // 집중도를 잃었을 때 강조하는 함수
+      function checkFocusLevels() {
+        for (const student in studentsFocus) {
+          const focusLevel = studentsFocus[student];
+          const studentElement = document.getElementById(student);
+          if (focusLevel < 60) {
+            studentElement.classList.add("lost-focus");
+          } else {
+            studentElement.classList.remove("lost-focus");
+          }
+        }
+      }
+
+      // 분석 시작 버튼 클릭 시
+      document.getElementById("startBtn").addEventListener("click", function () {
+        alert("집중도 분석이 시작되었습니다.");
+        // 집중도 분석 로직을 여기에 추가
+        checkFocusLevels(); // 예시 데이터로 체크
+      });
+
+      // 분석 중지 버튼 클릭 시
+      document.getElementById("stopBtn").addEventListener("click", function () {
+        alert("집중도 분석이 중지되었습니다.");
+        // 집중도 분석 종료 로직을 여기에 추가
+      });
+
+      // 집중도 업데이트 (예시)
+      setInterval(function () {
+        studentsFocus.student2 = Math.floor(Math.random() * 100); // 예시로 학생 2의 집중도를 무작위로 변경
+        checkFocusLevels();
+      }, 5000);
+    </script>
+  </body>
+</html>
