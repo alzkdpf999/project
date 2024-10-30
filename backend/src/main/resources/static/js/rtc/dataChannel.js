@@ -14,18 +14,22 @@ async function loadModel() {
 }
 // 실시간 예측 함수
 async function predict(model) {
+	//console.log(webcamElement);
     const webcamImage = tf.browser.fromPixels(webcamElement);
     const resizedImage = tf.image.resizeBilinear(webcamImage, [224, 224]);
     const normalizedImage = resizedImage.div(255.0).expandDims(0);
     
     const prediction = await model.predict(normalizedImage);
     //console.log(prediction.dataSync());
-	let result = prediction.dataSync();
+	const result = prediction.dataSync();
+	console.log('결과:'+result);
 	let predictedClass = result[0] > result[1] ? 0 : 1;
 	
-
+	
 	
 	//saveImage(resizedImage);  // webcamImage를 저장
+	webcamImage.dispose();
+	prediction.dispose();
 	
 	return predictedClass;
 	 
@@ -67,6 +71,7 @@ async function run(model, callback) {
 		return;
 	   }
 	   const result = await predict(model);
+	   console.log(result);
 	   checkZero(parseInt(result,10))
 	   setTimeout(predictLoop, predictionInterval);
 		
@@ -76,9 +81,10 @@ async function run(model, callback) {
 
 	function checkZero(value) {
 	  // 배열에서 가장 오래된 값을 제거하고, 새 값을 추가
+      //console.log("결과:"+value);
 	  values.shift();
 	  values.push(value);
-
+//console.log(values);
 	  // 모든 값이 0이면 콘솔 출력
 	  if (values.every(v => v === 0)) {
 		openModal();
@@ -160,8 +166,13 @@ const dataChannel = {
 			let message = recvMessage.userName + " : " + recvMessage.message;
 			this.showNewMessage(message, "ai-other");
 		}else if(recvMessage.type == "ai-result"){
-			
-			this.showNewMessage(`예측결과(${recvMessage.userName}) :`+ recvMessage.result, "ai-outcome",recvMessage.teachName);
+            const videoTag = document.querySelector(`#video-${recvMessage.userName}`);
+            videoTag.style.border="2px solid red";
+            setTimeout(function(){
+                videoTag.style.border = "none";
+            },2000);
+            
+			//this.showNewMessage(`예측결과(${recvMessage.userName}) :`+ recvMessage.result, "ai-outcome",recvMessage.teachName);
 		}
     },
     handleDataChannelError: function(error) {

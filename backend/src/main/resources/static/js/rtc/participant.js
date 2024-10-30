@@ -45,6 +45,9 @@ function Participant(name) {
 	video.id = 'video-' + name;
 	video.autoplay = true;
 	video.controls = false;
+	video.width="320";
+	video.height="240";
+	video.playsInline= true;
 	audio.autoplay = true;
 
 	/** set user LocalStream */
