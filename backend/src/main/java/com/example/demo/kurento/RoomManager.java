@@ -33,7 +33,7 @@ public class RoomManager {
 		log.debug("Searching for room {}", roomName);
 		log.info("getRoom실행?");
 		Room room = rooms.get(roomName);
-
+		log.info("{}",room);
 		if (room == null && check) {
 			log.debug("Room {} not existent. Will create now!", roomName);
 			room = new Room(roomName, kurento.createMediaPipeline());

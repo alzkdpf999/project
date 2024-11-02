@@ -67,8 +67,9 @@ public class FileController {
 	@GetMapping("/download/{name}")
 	@ResponseBody
 	public ResponseEntity<Resource> Download(@PathVariable("name") String name) throws Exception {
-		Path path = Paths.get(location + "/" + name);
-		log.info("연결됨");
+		log.info("이거11{}",name);
+		Path path = Paths.get(location+ "/" + name);
+		log.info("{}",path);
 		String contentType = Files.probeContentType(path);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentDisposition(

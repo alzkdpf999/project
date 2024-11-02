@@ -1,11 +1,14 @@
 package com.example.demo;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entity.UserEntity;
+import com.example.demo.entity.RoomEntity;
+import com.example.demo.repository.JpaRoomRepository;
 import com.example.demo.repository.JpaUserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +21,16 @@ class BackendApplicationTests {
 	
 	@Autowired
 	private JpaUserRepository u;
-	
+	@Autowired
+	private JpaRoomRepository j;
 	
 	@Test
 	void asd() {
-//		log.info("users{}",u.findAll());
-		log.info("asd");
+		Optional<RoomEntity> optional = j.findById(10L);
+		if(optional.isEmpty()) {
+			log.info("없");
+		}
+//		log.info("{}",);
 	}
 
 }

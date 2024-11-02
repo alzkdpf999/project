@@ -42,7 +42,6 @@ public class Room implements Closeable {
 		log.info("ROOM {} has been created", roomName);
 
 	}
-	
 	@PreDestroy
 	private void shutdown() {
 		this.close();

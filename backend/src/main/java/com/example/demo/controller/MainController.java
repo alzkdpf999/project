@@ -90,9 +90,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.UserDto;
-import com.example.demo.kurento.Room;
 import com.example.demo.kurento.RoomManager;
 import com.example.demo.repository.JpaUserRepository;
 import com.example.demo.service.RoomService;
@@ -103,6 +103,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @Transactional
+@RequestMapping("/")
 public class MainController {
 
 	// 방 생성과 그 방 아이디 이름 참가자? 정도 저장하는 디비가 필요할듯
@@ -119,28 +120,53 @@ public class MainController {
 	@Autowired
 	private RoomManager roomManager;
 	
-	@GetMapping("/")
-	public ResponseEntity<Object> goChatRoom() {
-		log.info("접속이 되나요??");
-//		UserDto use = UserDto.builder().email("asd").passwd("1234a").name("asd").build();
-//		uu.join(use);
-//		log.info("{}", u.findAll().get(0).getName());
-//		log.info("{}", u.findAll().get(1).getName());
-		return new ResponseEntity<>("연결확인",HttpStatus.OK);
+	@GetMapping
+	public String mainPage() {
+		//log.info("{}",u.findAll().get(0).getUserId());
+		return "/test/index";
 	}
+//	public ResponseEntity<Object> goChatRoom() {
+//		log.info("접속이 되나요??");
+////		UserDto use = UserDto.builder().email("asd").passwd("1234a").name("asd").build();
+////		uu.join(use);
+////		log.info("{}", u.findAll().get(0).getName());
+////		log.info("{}", u.findAll().get(1).getName());
+//		return new ResponseEntity<>("연결확인",HttpStatus.OK);
+//	}
 
 	@PostMapping("/room")
-	public ResponseEntity<Object> roomReg(@RequestBody String roomName) {
-		log.info("잘 받아와요{}",roomName);
-		String uuid = String.valueOf(t);
+	@ResponseBody
+	public ResponseEntity<Object> checkRoomTitle(@RequestBody String title) {
 		try {
-//			roomService.regRoom(roomName, uuid);// uuid 나중에 시큐리티 되면 바꿔줘야함
-			return  new ResponseEntity<>(roomName+"방 생성 완료",HttpStatus.OK);
-			
-		}catch (Exception e) {
-			return new ResponseEntity<>("서버 오류",HttpStatus.INTERNAL_SERVER_ERROR);
+			boolean check = roomService.vaildRoom(title);
+			log.info("{}",check);
+			if(!check) {
+				log.info("존재안함");
+				return new ResponseEntity<>("성공",HttpStatus.OK);
+			}else {
+				log.info("이미 존재합니");
+				return new ResponseEntity<>("이미 존재합니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}catch(Exception e) {
+			log.info(e.getMessage());
+			return new ResponseEntity<>("서버오류입니다.",HttpStatus.NOT_FOUND);
 		}
+		
+		
 	}
+	
+	//@PostMapping("/room")
+//	public ResponseEntity<Object> roomReg(@RequestBody String roomName) {
+//		log.info("잘 받아와요{}",roomName);
+//		String uuid = String.valueOf(t);
+//		try {
+////			roomService.regRoom(roomName, uuid);// uuid 나중에 시큐리티 되면 바꿔줘야함
+//			return  new ResponseEntity<>(roomName+"방 생성 완료",HttpStatus.OK);
+//			
+//		}catch (Exception e) {
+//			return new ResponseEntity<>("서버 오류",HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 
 	@GetMapping("/room/{roomId}")
 	public String roomAttend(Model model, @PathVariable String roomId) {
