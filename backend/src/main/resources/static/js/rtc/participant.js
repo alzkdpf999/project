@@ -1,4 +1,23 @@
+function addStudentItem(studentId, studentName, focusLevel) {
+  // 새로운 학생 아이템 생성
+  const studentItem = document.createElement("div");
+  studentItem.classList.add("student-item");
+  studentItem.id = studentId;
 
+  // 학생 이름 및 집중도 레벨 추가
+  studentItem.innerHTML = `
+    <div class="name">${studentName}</div>
+    <div class="focus-level">
+      <span>집중도:</span>
+      <div class="focus-bar">
+        <div id= "focus-level-${studentName}" class="focus-bar-inner" style="width: ${focusLevel}%"></div>
+      </div>
+    </div>
+  `;
+
+  // students-list 컨테이너에 추가
+  document.querySelector(".students-list").appendChild(studentItem);
+}
 
 const PARTICIPANT_MAIN_CLASS = 'participant main';
 const PARTICIPANT_CLASS = 'participant';
@@ -50,6 +69,9 @@ function Participant(name) {
 	video.playsInline= true;
 	audio.autoplay = true;
 
+	if(name != 0)
+	addStudentItem(name,name,100);
+	
 	/** set user LocalStream */
 	this.setLocalSteam = function(stream){
 		this.localStream = stream;

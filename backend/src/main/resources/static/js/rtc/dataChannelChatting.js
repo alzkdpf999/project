@@ -6,7 +6,7 @@ const dataChannelChatting = {
     $sendMessageBtn : $('#sendMessage'),
     $userTextInput :  $('.text-box'),
     $messagesContainer : $('.messages'),
-	$aiMessageBtn : $('#aiMessage'),
+	$aiModalBtn : $('#aiMessage'),
 	$aiInput : $('.ai-box'),
 	//$uuid : $('#uuid'),
     isCheckMinioPage : false,
@@ -30,11 +30,20 @@ const dataChannelChatting = {
         this.$sendMessageBtn.on("click", function(){
             dataChannel.showNewMessage(self.parseMessage(self.$userTextInput), 'self');
         });
-		this.$aiMessageBtn.on("click", function(){
+		document.getElementById("startBtn").addEventListener("click", function(){
 			console.log(self.$aiInput);
 			console.log("click");
-		            dataChannel.showNewMessage("ai시작합니다", 'ai');
+		    dataChannel.showNewMessage("ai시작합니다", 'ai');
+			
 		        });
+		document.getElementById("stopBtn").addEventListener("click",function(){
+			console.log("stop");
+			dataChannel.showNewMessage("","ai-stop");
+		});
+	this.$aiModalBtn.on("click",function(){
+		document.getElementById("focus-modal").style.display = "flex";
+		//$('.overlay-containter').style.display="flex";
+	})
 
     },
     openElement: function() {

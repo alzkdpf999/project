@@ -22,11 +22,10 @@ const handleClick = (roomName)=> {
 		
 
 document.querySelector("#new-meeting-btn").addEventListener("click",function(event){
-	
 			const btnTag = document.getElementById("meeting-btn");
 			const inputTag = document.getElementById("meeting-input");
 			const modalMeeting = document.getElementById("new-meeting");
-			
+		
 			modalMeeting.style.display = "flex";
 			modalMeeting.addEventListener("click",function(event){
 				if (event.currentTarget === event.target){
@@ -81,7 +80,7 @@ document.getElementById("join-input").addEventListener("keydown",function(event)
 				event.preventDefault();
 			}
 		})
-		
+
 		
 		
 document.getElementById("close").addEventListener("click",function(){

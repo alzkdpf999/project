@@ -20,6 +20,7 @@
     <link rel="styleSheet" href="/css/rtc/kurentostyle.css" type="text/css" media="screen" />
     <link rel="styleSheet" href="/css/rtc/floating_chat.css" type="text/css" media="screen" />
     <link rel="styleSheet" href="/css/rtc/media_device.css" type="text/css" media="screen" />
+    <link rel="styleSheet" href="/css/chatroom/admin.css" type="text/css"/>
     <!-- 여기까지 경로 설정해야합니다-->
   </head>
   <style>
@@ -266,6 +267,7 @@
     </div>
 
     <!-- 여기부터 경로 설정해야합니다-->
+    
     <script src="/js/rtc/participant.js"></script>
     <script src="/js/rtc/kurento-utils.js"></script>
     <script src="/js/rtc/kurento-service.js"></script>
@@ -324,6 +326,22 @@
     </div>
   </div>
 </html>
+<!-- 집중분석 한곳에 보는 모달  -->
+    <div class="overlay-container" id="focus-modal">
+    <div class="container">
+      <h1>집중도 분석 관리</h1>
+	<button id="focus-close"class="focus-close" style="    border: none;
+    background: white; outline: none;">X</button>
+      <div class="button-container">
+        <button id="startBtn">분석 시작</button>
+        <button id="stopBtn">분석 중지</button>
+      </div>
+
+      <div class="students-list">
+
+      </div>
+    </div>
+    </div>
 
 <!-- HTML에 음량 조절 슬라이더 추가 -->
 <div class="volume-control" type="hidden">
@@ -351,9 +369,6 @@
         <!-- 여기에 participants 내용이 들어갈 예정 -->
         <ul id="participantsList" class="list-group"></ul>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-      </div>
     </div>
   </div>
 </div>
@@ -380,3 +395,4 @@
     </div>
   </div>
 </div>
+<script src="/js/focusModal.js"></script>

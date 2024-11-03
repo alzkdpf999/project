@@ -270,6 +270,7 @@ var leftUserfunc = function () {
 // 웹 종료 or 새로고침 시 이벤트
 window.onbeforeunload = function () {
     if (self.screenTop > 9000 || document.readyState == "loading") {
+		leftUserfunc();
         leaveRoom();
     }
     else if (document.readyState == "complete") {
@@ -279,14 +280,14 @@ window.onbeforeunload = function () {
 
 // 나가기 버튼 눌렀을 때 이벤트
 // 결국 replace  되기 때문에 얘도 onbeforeunload 를 탄다
-$('#button-leave').on('click', function () {
-    sendDataChannelMessage(" 님이 떠나셨습니다ㅠㅠ");
-    leftUserfunc();
-    location.replace('/');
+document.getElementById("quit").addEventListener("click",function(){
+    window.location.href = `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}/`;
 });
+
 
 function leaveRoom(type) {
     if (type !== 'error') { // type 이 error 이 아닐 경우에만 퇴장 메시지 전송
+		console.log("나가기 ")
         sendDataChannelMessage(" 님이 떠나셨습니다ㅠㅠ");
     }
     setTimeout(leftUserfunc, 10);
@@ -309,7 +310,7 @@ function stopRecDownload(msg) {
 }
 
 function onParticipantLeft(request) {
-
+	sendDataChannelMessage(" 님이 떠나셨습니다ㅠㅠ");
     var participant = participants[request.name];
     //console.log('Participant ' + request.name + ' left');
     participant.dispose();
@@ -324,6 +325,7 @@ function sendMessageToServer(message) {
 
 // 메시지를 데이터 채널을 통해 전송하는 함수
 function sendDataChannelMessage(message) {
+	console.log("asd");
     if (participants[name].rtcPeer.dataChannel.readyState === 'open') {
         dataChannel.sendMessage(message);
     } else {

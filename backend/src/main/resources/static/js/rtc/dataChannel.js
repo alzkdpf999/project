@@ -1,11 +1,9 @@
 /**
  * DataChannel 을 다루기 위한 js
  */
-
 // HTML 요소 참조
 let webcamElement = null;
-const startButton = document.getElementById('startButton');
-
+let cnt = 0;
 // 모델 로드
 async function loadModel() {
     const model = await tf.loadGraphModel('../../model/model.json');
@@ -14,7 +12,8 @@ async function loadModel() {
 }
 // 실시간 예측 함수
 async function predict(model) {
-	//console.log(webcamElement);
+	
+	console.log(webcamElement);
     const webcamImage = tf.browser.fromPixels(webcamElement);
     const resizedImage = tf.image.resizeBilinear(webcamImage, [224, 224]);
     const normalizedImage = resizedImage.div(255.0).expandDims(0);
@@ -22,9 +21,9 @@ async function predict(model) {
     const prediction = await model.predict(normalizedImage);
     //console.log(prediction.dataSync());
 	const result = prediction.dataSync();
-	console.log('결과:'+result);
-	let predictedClass = result[0] > result[1] ? 0 : 1;
-	
+	console.log("result : "+result)
+	const predictedClass = result[0] > 0.5 ? 1 : 0;
+	console.log("클래스"+predictedClass);
 	
 	
 	//saveImage(resizedImage);  // webcamImage를 저장
@@ -38,6 +37,7 @@ async function predict(model) {
 // 웹캠과 모델을 바로 사용
 const alarmAudio = document.getElementById("alarmAudio");
 function openModal() {
+	cnt++;
   document.getElementById("딴짓알림모달").style.display = "flex";
   alarmAudio.play();
   
@@ -53,7 +53,7 @@ function closeModal() {
 
 
 
-async function run(model, callback) {
+async function run(models, callback) {
     if (!webcamElement) {
         console.error('Webcam element is not defined');
         return;
@@ -63,19 +63,14 @@ async function run(model, callback) {
    	let a = 0;
 	let isPaused = false;
 	let windowSize = 10; // 10초 동안의 값을 기록하기 위한 크기
-	let values = Array(windowSize).fill(1); // 처음에는 1로 초기화 (0이 아닌 값으로)
+	let values = Array(windowSize).fill(0); // 처음에는 1로 초기화 (0이 아닌 값으로)
     // 예측을 반복적으로 수행
-    async function predictLoop() {
-       if(isPaused){
-		setTimeout(predictLoop, predictionInterval);
-		return;
-	   }
-	   const result = await predict(model);
-	   console.log(result);
-	   checkZero(parseInt(result,10))
-	   setTimeout(predictLoop, predictionInterval);
-		
-    }
+	const interval = setInterval(async () => {
+	        if (!isPaused) {
+	            const result = await predict(models);
+	            checkZero(parseInt(result, 10));
+	        }
+	    }, predictionInterval);
 
 	
 
@@ -84,16 +79,16 @@ async function run(model, callback) {
       //console.log("결과:"+value);
 	  values.shift();
 	  values.push(value);
-//console.log(values);
+console.log("valuse : "+values);
 	  // 모든 값이 0이면 콘솔 출력
-	  if (values.every(v => v === 0)) {
+	  if (values.every(v => v === 1)) {
 		openModal();
 		callback("0");
-		values = Array(10).fill(1); // 배열을 다시 1로 초기화
+		values = Array(10).fill(0); // 배열을 다시 1로 초기화
 		pauseModel();
 	  }
 	  
-	function pauseModel() {
+	pauseModel = function(){
 	          isPaused = true;
 			  console.log("중")
 	      }
@@ -102,19 +97,52 @@ async function run(model, callback) {
 		  resumeModel = function() { // 전역 변수에 할당
 		          isPaused = false;
 		          console.log("모델이 재시작되었습니다.");
-		          predictLoop(); // 예측 루프를 다시 시작
+		
 		      };
 
 	}
-    // 예측 시작
-    predictLoop();
 }
 
 
+function top3Students(students){
+	let topStudents = Object.entries(students)
+	    .map(([name, score]) => [name, parseInt(score)]) // 점수를 숫자로 변환
+	    .sort((a, b) => b[1] - a[1]) // 내림차순 정렬
+	    .slice(0, 3); // 상위 3개 추출
+
+	// 상위 3개 출력
+	return topStudents;
+}
+
+function rankStudents(students){
+	students.forEach(([name,score]) =>{
+		const studentItem = document.createElement("div");
+			  studentItem.classList.add("student-item");
+			  studentItem.id = name;
+
+			  // 학생 이름 및 집중도 레벨 추가
+			  studentItem.innerHTML = `
+			    <div class="name">${name}</div>
+			    <div class="focus-level">
+			      <span>집중도:</span>
+			      <div class="focus-bar">
+			        <div id= "focus-level-${name}" class="focus-bar-inner" style="width: ${score}%"></div>
+			      </div>
+			    </div>
+			  `;
+
+			  // students-list 컨테이너에 추가
+			  document.querySelector(".students-list").appendChild(studentItem);
+	});
+	
+}
 const dataChannel = {
     user : null,
 	teach :null,
 	userPeers: {},
+	userFocus:{},
+	intervalId: null,
+	startTime:null,
     init: function() {
         // 핸들러들을 바인딩하여 'this'가 항상 dataChannel 객체를 참조하도록 보장하기 위함
         this.handleDataChannelOpen = this.handleDataChannelOpen.bind(this);
@@ -125,8 +153,7 @@ const dataChannel = {
     initDataChannelUser : function(user) {
         this.user = user;
 		this.userPeers[user.name] = user.rtcPeer; // 유저 이름으로 rtcPeer 저장
-		console.log(this.userPeers); // 확인용
-
+		console.log("울리는횟체크 ");
     },
     isNullOrUndefined : function(value) {
         return value === null || value === undefined;
@@ -159,20 +186,29 @@ const dataChannel = {
 			console.log("asd")
             let message = recvMessage.userName + " : " + recvMessage.message;
             this.showNewMessage(message, "other");
-        }else if (recvMessage.type == "ai-message"){
+        }else if(recvMessage.type == "ai-stop"){
+			this.showNewMessage("","ai-other-stop");
+			}else if (recvMessage.type == "ai-message"){
 	
 			this.teach = recvMessage.teachName;
 			console.log(this.teach);
 			let message = recvMessage.userName + " : " + recvMessage.message;
 			this.showNewMessage(message, "ai-other");
 		}else if(recvMessage.type == "ai-result"){
-            const videoTag = document.querySelector(`#video-${recvMessage.userName}`);
-            videoTag.style.border="2px solid red";
-            setTimeout(function(){
-                videoTag.style.border = "none";
-            },2000);
-            
+			if(recvMessage.teachName === this.user.name){
+				const videoTag = document.querySelector(`#video-${recvMessage.userName}`);
+				            videoTag.style.border="2px solid red";
+				            setTimeout(function(){
+				                videoTag.style.border = "none";
+				            },2000);
+			}
 			//this.showNewMessage(`예측결과(${recvMessage.userName}) :`+ recvMessage.result, "ai-outcome",recvMessage.teachName);
+		}else if(recvMessage.type=="focus-percent"){
+		//여기 체크
+		this.userFocus[recvMessage.userName]=recvMessage.message;
+			document.getElementById(`focus-level-${recvMessage.userName}`).style.width = `${recvMessage.message}%`;
+			console.log(this.userFocus);
+			
 		}
     },
     handleDataChannelError: function(error) {
@@ -183,6 +219,23 @@ const dataChannel = {
         if (this.isNullOrUndefined(event)) return;
         // console.log("dataChannel.OnClose", event);
     },
+	startFocusInterval: function(time){
+		if(!this.intervalId){
+		
+			this.intervalId = setInterval(() =>{
+				console.log("test");
+				const endTime = new Date();
+				const diffTime = endTime - time;
+				const percent = (cnt * 10)/(diffTime / 1000);
+				const roundedResult =100 - Math.round(percent * 10) / 10;
+				this.showNewMessage(roundedResult,"focus-interval");
+			},2000);
+		}
+	},
+	stopFocusInterval: function(){
+	clearInterval(this.intervalId);
+	this.intervalId= null;	
+	},
     sendMessage: function(message) {
         if (this.isNullOrUndefined(message)) return;
         let messageData = {
@@ -190,7 +243,7 @@ const dataChannel = {
             userName : this.user.name,
             message : message
         }
-		console.log(this.user.rtcPeer);
+		console.log(message);
         this.user.rtcPeer.send(JSON.stringify(messageData));
         
     },
@@ -203,6 +256,24 @@ const dataChannel = {
 						result : "알람이울렸"
 			        }
 		this.user.rtcPeer.send(JSON.stringify(messageData));
+	},
+	sendAiStopMsg:function(message){
+		let messageData = {
+			type : "ai-stop",
+			userName: this.user.name,
+			teachName : this.user.name,
+			message:message
+				}
+				this.user.rtcPeer.send(JSON.stringify(messageData));
+	},
+	sendFocusMessage:function(message){
+		let messageData = {
+			            type : "focus-percent",
+			            userName : this.user.name,
+						teachName : this.user.name,
+			            message : message
+			        }
+					this.user.rtcPeer.send(JSON.stringify(messageData));
 	},
 	sendAiMessage: function(message) {
 	        if (this.isNullOrUndefined(message)) return;
@@ -248,7 +319,12 @@ const dataChannel = {
                 scrollTop: dataChannelChatting.$messagesContainer.prop("scrollHeight")
             }, 250);
 
-        } else if(type === "ai"){
+        } else if(type === "focus-interval"){
+			document.getElementById(`focus-level-${this.user.name}`).style.width = `${recvMessage}%`
+			this.sendFocusMessage(recvMessage,this.user.name);
+			this.userFocus[this.user.name] = recvMessage;
+		// 여기 일단체크
+		}else if(type === "ai"){
 			if (!recvMessage) return;
 
 			            dataChannelChatting.$messagesContainer.append([
@@ -260,6 +336,12 @@ const dataChannel = {
 						dataChannelChatting.$messagesContainer.finish().animate({
 						                scrollTop: dataChannelChatting.$messagesContainer.prop("scrollHeight")
 						            }, 250);
+			}else if(type==="ai-other-stop"){
+				if(this.teach === null) { console.log("nono"); return;}
+				else{
+					pauseModel();
+					this.stopFocusInterval();
+				}
 			}
 			else if(type ==="ai-other"){
 		            dataChannelChatting.$messagesContainer.append([
@@ -268,18 +350,20 @@ const dataChannel = {
                 '</li>'
             ].join(''));
 			console.log(this.user.name);
-			 webcamElement = document.querySelector(`#video-${this.user.name}`);
-	
+			webcamElement = document.querySelector(`#video-${this.user.name}`);
+			
+			
 			     // `webcamElement`가 올바르게 설정되었는지 확인합니다.
 			     if (!webcamElement) {
 			         console.error('Video element not found');
 			        return;
 			     }
-
+				 this.startTime = new Date();
+				 this.startFocusInterval(this.startTime);
 			     // 모델을 로드하고 예측을 시작합니다.
 			     try {
-			         const model = await loadModel(); // 모델을 로드합니다.
-					 run(model, (result) => {
+			         const Model = await loadModel(); // 모델을 로드합니다.
+					 run(Model, (result) => {
 						this.sendAiResult(result)
 					       
 					         });
@@ -293,6 +377,8 @@ const dataChannel = {
 			               recvMessage,
 			               '</li>'
 			           ].join(''));
+		}else if(type ==="ai-stop"){
+			this.sendAiStopMsg(recvMessage,this.user.name);
 		}
 		else {
 			

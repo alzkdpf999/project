@@ -1,0 +1,116 @@
+.container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        position: relative;
+		width:470px;
+        
+      }
+
+      h1 {
+      margin: 20px 0px 20px 0px;
+        color: #5051f9;
+        text-align: center;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .button-container button {
+        background-color: #5051f9;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+
+      .button-container button:hover {
+        background-color: #3b3cd1;
+      }
+
+      .students-list {
+        margin-top: 20px;
+        overflow-y: auto;
+        height: 10rem;
+      }
+
+      .student-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .student-item .name {
+        font-weight: 600;
+      }
+
+      .focus-level {
+        display: flex;
+        align-items: center;
+      }
+
+      .focus-level span {
+        margin-right: 10px;
+        font-weight: 600;
+      }
+
+      .focus-bar {
+        width: 200px;
+        height: 20px;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .focus-bar-inner {
+        height: 100%;
+        background-color: #5051f9;
+        transition: width 0.5s ease;
+      }
+
+      /* 집중을 잃었을 때 강조 표시 */
+      .student-item.lost-focus {
+        background-color: #ffe6e6;
+        border: 1px solid #ff4d4d;
+      }
+
+      .student-item.lost-focus .name {
+        color: #ff4d4d;
+      }
+.focus-close{
+	font-size: 1.2rem;
+    font-weight: 700;
+    position: absolute;
+        top: 0.7rem;
+    right: 0.7rem;
+}
+.overlay-container{
+	
+      z-index: 9999;
+      width: 100vw;
+      height: 120vh;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: none;
+    justify-content: center;
+    align-items: center;
+      background : rgba(0, 0, 0, 0.5);
+}
