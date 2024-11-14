@@ -7,13 +7,13 @@ let cnt = 0;
 // 모델 로드
 async function loadModel() {
     const model = await tf.loadGraphModel('../../model/model.json');
-    console.log("Model loaded successfully.");
+    //console.log("Model loaded successfully.");
     return model;
 }
 // 실시간 예측 함수
 async function predict(model) {
 	
-	console.log(webcamElement);
+	//console.log(webcamElement);
     const webcamImage = tf.browser.fromPixels(webcamElement);
     const resizedImage = tf.image.resizeBilinear(webcamImage, [224, 224]);
     const normalizedImage = resizedImage.div(255.0).expandDims(0);
@@ -21,9 +21,9 @@ async function predict(model) {
     const prediction = await model.predict(normalizedImage);
     //console.log(prediction.dataSync());
 	const result = prediction.dataSync();
-	console.log("result : "+result)
+	//console.log("result : "+result)
 	const predictedClass = result[0] > 0.5 ? 1 : 0;
-	console.log("클래스"+predictedClass);
+	//console.log("클래스:::"+predictedClass);
 	
 	
 	//saveImage(resizedImage);  // webcamImage를 저장
@@ -79,9 +79,10 @@ async function run(models, callback) {
       //console.log("결과:"+value);
 	  values.shift();
 	  values.push(value);
-console.log("valuse : "+values);
+//console.log("valuse : "+values);
 	  // 모든 값이 0이면 콘솔 출력
 	  if (values.every(v => v === 1)) {
+		cnt++;
 		openModal();
 		callback("0");
 		values = Array(10).fill(0); // 배열을 다시 1로 초기화
@@ -116,6 +117,8 @@ function top3Students(students){
 
 function rankStudents(students){
 	students.forEach(([name,score]) =>{
+		//console.log(name,score);
+		/*
 		const studentItem = document.createElement("div");
 			  studentItem.classList.add("student-item");
 			  studentItem.id = name;
@@ -133,6 +136,7 @@ function rankStudents(students){
 
 			  // students-list 컨테이너에 추가
 			  document.querySelector(".students-list").appendChild(studentItem);
+			  */
 	});
 	
 }
@@ -153,7 +157,7 @@ const dataChannel = {
     initDataChannelUser : function(user) {
         this.user = user;
 		this.userPeers[user.name] = user.rtcPeer; // 유저 이름으로 rtcPeer 저장
-		console.log("울리는횟체크 ");
+		//console.log("울리는횟체크 ");
     },
     isNullOrUndefined : function(value) {
         return value === null || value === undefined;
@@ -183,7 +187,7 @@ const dataChannel = {
 
         } else if(recvMessage.type == "message"){
             // 일반 메시지 처리
-			console.log("asd")
+			//console.log("asd")
             let message = recvMessage.userName + " : " + recvMessage.message;
             this.showNewMessage(message, "other");
         }else if(recvMessage.type == "ai-stop"){
@@ -191,7 +195,7 @@ const dataChannel = {
 			}else if (recvMessage.type == "ai-message"){
 	
 			this.teach = recvMessage.teachName;
-			console.log(this.teach);
+			//console.log(this.teach);
 			let message = recvMessage.userName + " : " + recvMessage.message;
 			this.showNewMessage(message, "ai-other");
 		}else if(recvMessage.type == "ai-result"){
@@ -205,15 +209,17 @@ const dataChannel = {
 			//this.showNewMessage(`예측결과(${recvMessage.userName}) :`+ recvMessage.result, "ai-outcome",recvMessage.teachName);
 		}else if(recvMessage.type=="focus-percent"){
 		//여기 체크
-		this.userFocus[recvMessage.userName]=recvMessage.message;
+			if(recvMessage.userName !=0){
 			document.getElementById(`focus-level-${recvMessage.userName}`).style.width = `${recvMessage.message}%`;
-			console.log(this.userFocus);
-			
+			//console.log(this.userFocus);
+			this.userFocus[recvMessage.userName] = recvMessage.message;
+ 			}
+			console.log("focus-percent "+ recvMessage.userName+ ":::" + JSON.stringify(this.userFocus));
 		}
     },
     handleDataChannelError: function(error) {
         if (this.isNullOrUndefined(error)) return;
-        console.error("dataChannel.OnError:", error);
+        //console.error("dataChannel.OnError:", error);
     },
     handleDataChannelClose: function(leaveEvent, event) {
         if (this.isNullOrUndefined(event)) return;
@@ -223,13 +229,15 @@ const dataChannel = {
 		if(!this.intervalId){
 		
 			this.intervalId = setInterval(() =>{
-				console.log("test");
+				//console.log("test");
 				const endTime = new Date();
 				const diffTime = endTime - time;
 				const percent = (cnt * 10)/(diffTime / 1000);
 				const roundedResult =100 - Math.round(percent * 10) / 10;
 				this.showNewMessage(roundedResult,"focus-interval");
+				rankStudents(top3Students(this.userFocus));
 			},2000);
+			
 		}
 	},
 	stopFocusInterval: function(){
@@ -243,7 +251,7 @@ const dataChannel = {
             userName : this.user.name,
             message : message
         }
-		console.log(message);
+		//console.log(message);
         this.user.rtcPeer.send(JSON.stringify(messageData));
         
     },
@@ -270,14 +278,13 @@ const dataChannel = {
 		let messageData = {
 			            type : "focus-percent",
 			            userName : this.user.name,
-						teachName : this.user.name,
 			            message : message
 			        }
 					this.user.rtcPeer.send(JSON.stringify(messageData));
 	},
 	sendAiMessage: function(message) {
 	        if (this.isNullOrUndefined(message)) return;
-			console.log(this.user.name);
+			//console.log(this.user.name);
 	        let messageData = {
 	            type : "ai-message",
 	            userName : this.user.name,
@@ -305,7 +312,7 @@ const dataChannel = {
                 recvMessage,
                 '</li>'
             ].join(''));
-			console.log("self");
+			//console.log("self");
 			this.sendMessage(recvMessage);
             
 
@@ -320,9 +327,14 @@ const dataChannel = {
             }, 250);
 
         } else if(type === "focus-interval"){
-			document.getElementById(`focus-level-${this.user.name}`).style.width = `${recvMessage}%`
+			console.log("focus-interval");
+			if(this.user.name != 0){
+				this.userFocus[this.user.name] = recvMessage;
+				document.getElementById(`focus-level-${this.user.name}`).style.width = `${recvMessage}%`
+			}
 			this.sendFocusMessage(recvMessage,this.user.name);
-			this.userFocus[this.user.name] = recvMessage;
+			console.log("focus-interval :::" + JSON.stringify(this.userFocus));
+			
 		// 여기 일단체크
 		}else if(type === "ai"){
 			if (!recvMessage) return;
@@ -336,6 +348,8 @@ const dataChannel = {
 						dataChannelChatting.$messagesContainer.finish().animate({
 						                scrollTop: dataChannelChatting.$messagesContainer.prop("scrollHeight")
 						            }, 250);
+						this.startTime = new Date();
+						this.startFocusInterval(this.startTime);	
 			}else if(type==="ai-other-stop"){
 				if(this.teach === null) { console.log("nono"); return;}
 				else{
@@ -349,7 +363,7 @@ const dataChannel = {
                 recvMessage,
                 '</li>'
             ].join(''));
-			console.log(this.user.name);
+			//console.log(this.user.name);
 			webcamElement = document.querySelector(`#video-${this.user.name}`);
 			
 			
@@ -393,7 +407,7 @@ const dataChannel = {
     showNewFileMessage : function(file, type){
 
         // 이미지 요소 생성 및 설정
-        console.log(locationHost+"/file/"+file.fileName);
+        //console.log(locationHost+"/file/"+file.fileName);
         
         var imgElement = $('<img>', {
             // src: file.type.includes("image") ? "https://"+locationHost+"/file/"+file.fileName : "https://"+locationHost+"/file/test.png",
